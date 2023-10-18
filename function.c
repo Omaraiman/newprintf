@@ -1,7 +1,4 @@
 #include "main.h"
-
-/************************* PRINT CHAR *************************/
-
 /**
  * print_character - Prints a character
  * @args: List of arguments
@@ -19,7 +16,7 @@ int print_character(va_list args, char buf[],
 
 	return (handle_write_char(c, buf, flgs, wdth, prec, sz));
 }
-/************************* PRINT A STRING *************************/
+
 /**
  * print_str - Prints a string
  * @args: List of arguments
@@ -56,7 +53,7 @@ int print_str(va_list args, char buf[],
 
 	if (wdth > length)
 	{
-		if (flgs & F_MINUS)
+		if (flgs & FLG_MINUS)
 		{
 			write(1, &str[0], length);
 			for (i = wdth - length; i > 0; i--)
@@ -74,7 +71,7 @@ int print_str(va_list args, char buf[],
 
 	return (write(1, str, length));
 }
-/************************* PRINT PERCENT SIGN *************************/
+
 /**
  * print_percent - Prints a percent sign
  * @args: List of arguments
@@ -97,7 +94,6 @@ int print_percent(va_list args, char buf[],
 	return (write(1, "%%", 1));
 }
 
-/************************* PRINT INT *************************/
 /**
  * print_integer - Print integer
  * @args: List of arguments
@@ -141,7 +137,6 @@ int print_integer(va_list args, char buf[],
 	return (write_number(is_negative, i, buf, flgs, wdth, prec, sz));
 }
 
-/************************* PRINT BINARY *************************/
 /**
  * print_bin - Prints an unsigned number
  * @args: List of arguments
