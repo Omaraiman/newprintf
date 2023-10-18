@@ -8,11 +8,11 @@
 #define BUFF_SIZE 1024
 
 /* FLAGS */
-#define FLG_MINUS 1
-#define FLG_PLUS 2
-#define FLG_ZERO 4
-#define FLG_HASH 8
-#define FLG_SPACE 16
+#define FG_MINUS 1
+#define FG_PLUS 2
+#define FG_ZERO 4
+#define FG_HASH 8
+#define FG_SPACE 16
 
 /* SIZES */
 #define SZ_LONG 2
@@ -104,4 +104,4 @@ int is_digit(char);
 long int convert_size_number(long int num, int size);
 long int convert_size_unsigned(unsigned long int num, int size);
 
-#endif 
+#endif

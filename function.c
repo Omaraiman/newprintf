@@ -53,7 +53,7 @@ int print_str(va_list args, char buf[],
 
 	if (wdth > length)
 	{
-		if (flgs & FLG_MINUS)
+		if (flgs & FG_MINUS)
 		{
 			write(1, &str[0], length);
 			for (i = wdth - length; i > 0; i--)

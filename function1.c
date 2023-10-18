@@ -67,7 +67,7 @@ int print_oct(va_list args, char buf[],
 		num /= 8;
 	}
 
-	if (flgs & F_HASH && init_num != 0)
+	if (flgs & FG_HASH && init_num != 0)
 		buf[i--] = '0';
 
 	i++;
@@ -142,7 +142,7 @@ int print_hexa(va_list args, char map_to[], char buf[],
 		num /= 16;
 	}
 
-	if (flgs & F_HASH && init_num != 0)
+	if (flgs & FG_HASH && init_num != 0)
 	{
 		buf[i--] = flag_ch;
 		buf[i--] = '0';
