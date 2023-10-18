@@ -1,65 +1,65 @@
 #include "main.h"
 
-void output_content(char content[], int *content_index);
+void output_buffer(char buf[], int *buf_idx);
 
 /**
  * _printf - Custom printf function
- * @input_format: input format.
+ * @fmt: format string.
  * Return: Number of characters printed.
  */
-int _printf(const char *input_format, ...)
+int _printf(const char *fmt, ...)
 {
-	int index, total_printed = 0, total_printed_chars = 0;
-	int flag_values, width_value, precision_value, size_value, content_index = 0;
-	va_list arg_list;
-	char content[CONTENT_SIZE];
+	int j, print_result = 0, total_chars = 0;
+	int flgs, wdth, prec, sz, buf_idx = 0;
+	va_list args;
+	char buf[BUFF_SIZE];
 
-	if (input_format == NULL)
+	if (fmt == NULL)
 		return (-1);
 
-	va_start(arg_list, input_format);
+	va_start(args, fmt);
 
-	for (index = 0; input_format && input_format[index] != '\0'; index++)
+	for (j = 0; fmt && fmt[j] != '\0'; j++)
 	{
-		if (input_format[index] != '%')
+		if (fmt[j] != '%')
 		{
-			content[content_index++] = input_format[index];
-			if (content_index == CONTENT_SIZE)
-				output_content(content, &content_index);
-			total_printed_chars++;
+			buf[buf_idx++] = fmt[j];
+			if (buf_idx == BUFF_SIZE)
+				output_buffer(buf, &buf_idx);
+			total_chars++;
 		}
 		else
 		{
-			output_content(content, &content_index);
-			flag_values = fetch_flags(input_format, &index);
-			width_value = fetch_width(input_format, &index, arg_list);
-			precision_value = fetch_precision(input_format, &index, arg_list);
-			size_value = fetch_size(input_format, &index);
-			++index;
-			total_printed = process_print(input_format, &index, arg_list, content,
-				flag_values, width_value, precision_value, size_value);
-			if (total_printed == -1)
+			output_buffer(buf, &buf_idx);
+			flgs = get_flags(fmt, &j);
+			wdth = get_width(fmt, &j, args);
+			prec = get_precision(fmt, &j, args);
+			sz = get_size(fmt, &j);
+			++j;
+			print_result = handle_print(fmt, &j, args, buf,
+				flgs, wdth, prec, sz);
+			if (print_result == -1)
 				return (-1);
-			total_printed_chars += total_printed;
+			total_chars += print_result;
 		}
 	}
 
-	output_content(content, &content_index);
+	output_buffer(buf, &buf_idx);
 
-	va_end(arg_list);
+	va_end(args);
 
-	return (total_printed_chars);
+	return (total_chars);
 }
 
 /**
- * output_content - Outputs the contents of the content if it exist
- * @content: Array of characters
- * @content_index: Index at which to add next character, represents the length.
+ * output_buffer - Outputs the contents of the buffer if it exists
+ * @buf: Character array
+ * @buf_idx: Index at which to add next character, represents the length.
  */
-void output_content(char content[], int *content_index)
+void output_buffer(char buf[], int *buf_idx)
 {
-	if (*content_index > 0)
-		write(1, &content[0], *content_index);
+	if (*buf_idx > 0)
+		write(1, &buf[0], *buf_idx);
 
-	*content_index = 0;
+	*buf_idx = 0;
 }
